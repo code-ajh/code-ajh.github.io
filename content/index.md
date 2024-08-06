@@ -14,14 +14,6 @@ date: 2024-08-03
 평범한 중소기업에서 이것저것 하고 있지만...
 팀 중간에서 윤활제 역할로 살아가고 있는 평범한 잡부입니다.
 
-```dataview
-TABLE
-file.ctime as "Created Time", file.mtime as "Updated Time", file.tag as "Tag"
-FROM "/"
-WHERE file.folder != "이미지 저장" AND file.folder != "관리/템플릿" AND file.folder != "dashboard"
-SORT file.mtime DESC
-LIMIT 10
-```
 ### 카테고리
 
 - [[잡담/]]

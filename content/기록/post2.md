@@ -22,7 +22,7 @@ Elasticsearch 는 문서화가 잘되어있지만 여러 페이지를 참고해�
 
 ## 1.1 dnf repo 설정  
 
-Docker 사용하여 컨테이너로 띄우는 법도 있지만 실서비스에는 적합하지 않다고 공식 문서에서 서술하고 있습니다. 여기서는 공식 패키지를 사용하여 설치합니다.
+Docker 사용하여 컨테이너로 띄우는 법도 있지만 프로덕션 레벨에는 적합하지 않다고 공식 문서에서 서술하고 있습니다. 여기선 공식 패키지를 사용하여 설치합니다.
  
 
 > [!note]
@@ -50,7 +50,7 @@ dnf install --enablerepo=elasticsearch elasticsearch kibana
 ```
 
   
-[위에서](#11-dnf-repo-설정) 설정한 repository를 사용하여 elasticsearch 와 kibana를 함께 설치합니다.
+[1.1에서](#11-dnf-repo-설정) 설정한 repository를 사용하여 elasticsearch 와 kibana를 함께 설치합니다.
 
   
 정상적으로 설치가 완료되면 아래와 같은 문구가 출력됩니다.
@@ -214,14 +214,9 @@ elasticsearch.password: "{랜덤 비밀번호 입력}"
 ```
 
   
-
 # 3. 실행
 
-  
-
 서버가 실행될 경우에는 자동으로 실행되도록 설정합니다.
-
-  
 
 ```bash
 systemctl enable elasticsearch
@@ -230,17 +225,18 @@ systemctl enable kibana
 systemctl start elasticsearch
 systemctl start kibana
 ```
-
   
-elasticsearch 의 경우에는 실행에 약간의 시간이 필요할 수 있습니다.
-
+실행에 약간의 시간이 필요할 수 있습니다.
 
 ---
 
 # **참조**
 
-<https://www.elastic.co/guide/en/elasticsearch/reference/current/setup.html> - Set up Elasticsearch
+>Set up Elasticsearch - Elastic Documentation\
+><https://www.elastic.co/guide/en/elasticsearch/reference/current/setup.html>
 
-<https://realkoy.tistory.com/entry/elasticsearch-840-%EC%9D%B8%EC%A6%9D%EC%84%9C-%EC%83%9D%EC%84%B1%ED%95%98%EC%97%AC-%EC%84%A4%EC%B9%98> - elasticsearch-8.4.0 (8.x) 인증서 생성하여 설치
+> elasticsearch-8.4.0 (8.x) 인증서 생성하여 설치 - Tistory\
+> <https://realkoy.tistory.com/entry/elasticsearch-840-%EC%9D%B8%EC%A6%9D%EC%84%9C-%EC%83%9D%EC%84%B1%ED%95%98%EC%97%AC-%EC%84%A4%EC%B9%98> - 
 
-<https://velog.io/@jhchoi94/%ED%81%B4%EB%9F%AC%EC%8A%A4%ED%84%B0-%EA%B5%AC%EC%84%B1-%EB%8B%A8%EC%9D%BC-%EA%B5%AC%EC%84%B1> - [ElasticSearch] 클러스터 구성 (단일 구성)
+>\[ElasticSearch] 클러스터 구성 (단일 구성) - velog.io\
+><https://velog.io/@jhchoi94/%ED%81%B4%EB%9F%AC%EC%8A%A4%ED%84%B0-%EA%B5%AC%EC%84%B1-%EB%8B%A8%EC%9D%BC-%EA%B5%AC%EC%84%B1> - 

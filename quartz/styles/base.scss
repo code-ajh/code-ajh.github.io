@@ -437,6 +437,9 @@ p {
 
 .table-container {
   overflow-x: auto;
+  // center the table
+  display: flex;
+  justify-content: center;
 
   & > table {
     margin: 1rem;

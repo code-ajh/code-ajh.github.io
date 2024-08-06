@@ -22,9 +22,10 @@ date: 2024-08-03
 이전 버전 (RHEL 6 이하)의 리눅스에서는 런레벨이라고 하는 개념으로 부팅할 때의 동작을 제어 했습니다. 
 
 런레벨은 해당 서버를 어떠한 방식으로 사용할지 정할 수 있습니다. ( 예시 : CLI -> GUI )
-만약 서버 작업에 익숙하신 분들은 init 0 을 통해 서버를 종료하거나 init 6 등으로 재부팅 해본 적 있을수도 있습니다. 해당 명령어는 해당 런레벨을 시작한다는 뜻입니다. 
+만약 서버 작업에 익숙하신 분들은 init 0 을 통해 서버를 종료해본 기억이 있을수도 있겠네요. 
+해당 명령어는 0 런레벨로 동작하겠다는 뜻입니다. 
 
-아래는 RHEL 6 기준의 각 런레벨의 뜻입니다. 
+아래는 RHEL 6 기준의 각 런레벨 설명입니다.
 
 | level | 설명                      | 유저 인터페이스 | 특징              |
 | ----- | ----------------------- | -------- | --------------- |
@@ -36,19 +37,29 @@ date: 2024-08-03
 | 5     | 다중 사용자 모드 (X Window 기반) | GUI      | 일반적인  GUI 사용 레벨 |
 | 6     | 리부트                     |          |                 |
 
+**다만 런레벨은 RHEL 7 에서부터 사용되지 않으며 호환성을 가지고 systemd 의 target 으로 변경 되었습니다.**
+
+
 ### rc.local
 
-분명 rc.local에서 오류가 발생했다 그랬는데 위에서는 런레벨만 말하고 있습니다.
+분명 rc.local에서 오류가 발생했다 그랬는데 위에서는 런레벨만 말하고 있는 이유는 rc.local은 런레벨의 동작과 관계가 있었기 때문입니다. 
 
-왜냐하면 rc.local은 런레벨의 동작과 관계가 있기 때문입니다. 
+리눅스에서는 /etc/rc[0~6].d 라고 하는 실행 수준에 맞는 각 디렉토리의 스크립트들을 실행하였으며 모두 끝난 뒤에는 rc.local 을 모든 런레벨에서 공통적으로 실행합니다.
 
-리눅스에서는 /etc/rc[0~6].d 라고 하는 디렉토리가 있는데 해당 런레벨을 실행 할 경우 맞는 동작 스크립트를 모아둔 디렉토리입니다. 
+|     RHEL 6      |     RHEL 9      |
+| :-------------: | :-------------: |
+| ![[RHEL 6.png]] | ![[RHEL 9.png]] |
 
-런레벨 0을 실행하면 rc0.d 디렉토리의 스크립트들을 실행하는 방식이죠. 
+다만 위에서 말한 것처럼 런레벨을 더 이상 사용되지 않으며 RHEL 9 에서 호환성을 제외한 나머지 부분은 제거되었습니다.  rc.local은 호환을 위해서 유지되고 있는 상태입니다.  
+
+기존에는 rc.local이 init 에서 실행되었지만 systemd target 으로 변경된 이후에는 rc-local.service 를 통해서 실행됩니다. 
 
 ---
 ### 출처
 
 > SysV init 런레벨 - Red Hat Documentation 
 > https://docs.redhat.com/ko/documentation/red_hat_enterprise_linux/6/html/installation_guide/s1-boot-init-shutdown-sysv
+
+> systemd 대상 작업 - Red Hat Documentation
+> https://docs.redhat.com/ko/documentation/red_hat_enterprise_linux/7/html/system_administrators_guide/sect-Managing_Services_with_systemd-Targets#tabl-Managing_Services_with_systemd-Targets-Runlevels
 
