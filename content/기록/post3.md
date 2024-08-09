@@ -39,7 +39,7 @@ date: 2024-08-03
 
 **다만 런레벨은 RHEL 7 에서부터 사용되지 않으며 호환성을 가지고 systemd 의 target 으로 변경 되었습니다.**
 
-
+---
 ### rc.local
 
 분명 rc.local에서 오류가 발생했다 그랬는데 위에서는 런레벨만 말하고 있는 이유는 rc.local은 런레벨의 동작과 관계가 있었기 때문입니다. 
@@ -53,6 +53,45 @@ date: 2024-08-03
 다만 위에서 말한 것처럼 런레벨을 더 이상 사용되지 않으며 RHEL 9 에서 호환성을 제외한 나머지 부분은 제거되었습니다.  rc.local은 호환을 위해서 유지되고 있는 상태입니다.  
 
 기존에는 rc.local이 init 에서 실행되었지만 systemd target 으로 변경된 이후에는 rc-local.service 를 통해서 실행됩니다. 
+
+system file은 이렇게 구성되어 있습니다.
+```bash
+#  SPDX-License-Identifier: LGPL-2.1-or-later
+#
+#  This file is part of systemd.
+#
+#  systemd is free software; you can redistribute it and/or modify it
+#  under the terms of the GNU Lesser General Public License as published by
+#  the Free Software Foundation; either version 2.1 of the License, or
+#  (at your option) any later version.
+
+# This unit gets pulled automatically into multi-user.target by
+# systemd-rc-local-generator if /etc/rc.d/rc.local is executable.
+[Unit]
+Description=/etc/rc.d/rc.local Compatibility
+Documentation=man:systemd-rc-local-generator(8)
+ConditionFileIsExecutable=/etc/rc.d/rc.local
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=forking
+ExecStart=/etc/rc.d/rc.local start
+TimeoutSec=0
+RemainAfterExit=yes
+GuessMainPID=no
+```
+
+여기서 아래 문장을 읽어보면 
+`This unit gets pulled automatically into multi-user.target by `
+`systemd-rc-local-generator if /etc/rc.d/rc.local is executable.`
+
+/etc/rc.d/rc.local의 파일이 실행 가능할 경우에 systemd-rc-local-generator 를 통해서 multi-user.target에 포함된다고 적혀있습니다. 
+
+실제로 rc.local 파일에 실행 권한을 주면 rc-local.service 가 active되고 실행 권한이 없는 경우에는 inactive 되어 있는 것을 확인 가능합니다. 
+
+마지막으로 해당 서비스의 실행 명령어는 `ExecStart=/etc/rc.d/rc.local start` 로 되어 있으니 해당 명령어로 실행 테스트 해보시고 문제 없다면 정상적으로 동작됩니다.
+
 
 ---
 ### 출처
