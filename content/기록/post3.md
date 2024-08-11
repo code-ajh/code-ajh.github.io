@@ -81,17 +81,9 @@ TimeoutSec=0
 RemainAfterExit=yes
 GuessMainPID=no
 ```
+systemd 파일에 대한 설명은 따로 진행하지 않습니다.
 
-여기서 아래 문장을 읽어보면 
-`This unit gets pulled automatically into multi-user.target by `
-`systemd-rc-local-generator if /etc/rc.d/rc.local is executable.`
-
-/etc/rc.d/rc.local의 파일이 실행 가능할 경우에 systemd-rc-local-generator 를 통해서 multi-user.target에 포함된다고 적혀있습니다. 
-
-실제로 rc.local 파일에 실행 권한을 주면 rc-local.service 가 active되고 실행 권한이 없는 경우에는 inactive 되어 있는 것을 확인 가능합니다. 
-
-마지막으로 해당 서비스의 실행 명령어는 `ExecStart=/etc/rc.d/rc.local start` 로 되어 있으니 해당 명령어로 실행 테스트 해보시고 문제 없다면 정상적으로 동작됩니다.
-
+해당 서비스는 `rc.local start` 명령어를 통해서 실행되므로 `rc.local` 파일에는 실행 권한이 필요합니다. 추가로 당연하지만 스크립트 실행 중 실패 발생시 오류가 나면서 실행이 되지 않으므로 그 부분만 고려하며 사용하면 됩니다.
 
 ---
 ### 출처
