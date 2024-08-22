@@ -4,7 +4,6 @@ description: 23년도에 화제가 되었던 글 BIG DATA IS DEAD 관련하여 �
 date: 2024-07-16
 tags:
   - 잡담
-category: 잡담
 draft: false
 aliases:
   - BIG DATA IS DEAD

@@ -1,6 +1,6 @@
 ---
 title: 런레벨과 rc.local
-description: rc.local 관련 오류가 생겨 관련 개념 정리
+description: rc.local  관련 개념 정리
 aliases: 
 tags:
   - Linux
