@@ -16,7 +16,7 @@ const config: QuartzConfig = {
       tagId: "0Ijnrxh6SpndtgYk2G9ONysnrk-IbWyL2kn5H8FOnyY"
     },
     locale: "ko-KR",
-    baseUrl: "code-ajh.github.io/quartz",
+    baseUrl: "code-ajh.github.io",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "created",
     theme: {
