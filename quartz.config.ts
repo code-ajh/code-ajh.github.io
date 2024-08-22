@@ -15,7 +15,7 @@ const config: QuartzConfig = {
       provider: "google", 
       tagId: "0Ijnrxh6SpndtgYk2G9ONysnrk-IbWyL2kn5H8FOnyY"
     },
-    locale: "ko-KR",
+    locale: "en-US",
     baseUrl: "code-ajh.github.io",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "created",
