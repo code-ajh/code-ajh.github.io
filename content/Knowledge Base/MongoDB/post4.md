@@ -16,7 +16,7 @@ MongoDB의 공식문서에 설명되어 있으나 한국어 문서는 신경망 
 ---
 # 개념
 
-time series collection에 대해서 공식 문서를 정리한 내용입니다. 
+time series collection 은 이름에서 보이는 것처럼 시계열 데이터를 더욱 효율적으로 저장하기 위한 방법입니다. 
 
 
 
