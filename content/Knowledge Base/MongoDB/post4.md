@@ -1,12 +1,12 @@
 ---
 title: MongoDB의 time series collection
-description: MongoDB 5.x 에 정식으로 추가된 time series collection에 대해서 조사합니다.
+description: MongoDB 5.x 에 정식으로 추가된 time series collection 조사
 aliases: 
 tags:
   - MongoDB
   - OLAP
 draft: true
-date: 2024-08-22
+date: 2024-09-08
 ---
 OLAP 관련하여 조사하다가 MongoDB의 새로운 기능 time series collection에 대해서 알게 되었습니다. 해당 기능을 사용할 경우에는 기존 collection 과 어떤 차이가 있는지 확인해보고 간단하게 쿼리를 테스트 해봤습니다.
 
@@ -16,8 +16,40 @@ MongoDB의 공식문서에 설명되어 있으나 한국어 문서는 신경망 
 ---
 # 개념
 
-time series collection 은 이름에서 보이는 것처럼 시계열 데이터를 더욱 효율적으로 저장하기 위한 방법입니다. 
+Time Series Collections은 효과적으로 시계열 데이터를 저장하기 위해  MongoDB 5.0 에서 도입된 새로운 Collection 입니다. 
 
+**기본적인 동작 원리는 비슷한 시간대의 데이터를 묶어 Paritioning 하는 것이며 추가로 Metafield 를 사용하여 추가적인 bucket 분리가 이루어집니다.** 시간 순서대로 데이터가 들어와도 저장은 반드시 시간 순으로 이루어집니다. 
+
+![[Pasted image 20240908145110.png]]
+
+
+아래는 time series collection 생성 쿼리 예시입니다.
+``` json
+db.createCollection( 
+	"collection_name", {
+		timeseries: {
+			timeField: "timestamp",
+			metaField: "metadata",
+			granularity: "seconds",
+			bucketMaxSpanSeconds : 60,
+			bucketRoundingSeconds : 60
+		},
+		expireAfterSeconds: value_in_seconds 
+	} 
+)
+```
+
+`timeseries` 키워드로 time series collection 으로 만든다는 것을 명시합니다.
+
+나머지 필드의 뜻은 아래와 같습니다.  
+
+timeField : 시간 데이터로 사용할 필드 이름
+metaField : bucket 분리에 사용될 필드 이름 
+granularity : 시간 데이터를 어떤 단위로 분리할 것인지 \[ seconds | minutes | hours ] 
+- bucketMaxSpanSeconds : 최대 시간 범위 
+- bucketRoundingSeconds : 새롭게 생성되는 bucket의 timestamp 의 반올림 범위
+	- bucketMaxSpanSeconds, bucketMaxSpanSeconds 는 동일한 값을 가지고 있어야 합니다.
+expireAfterSeconds : TTL, 일반 collection 에서도 사용 가능한 기능과 비슷함
 
 
 
@@ -26,3 +58,7 @@ time series collection 은 이름에서 보이는 것처럼 시계열 데이터�
 
 >Time Series - MongoDB Manual
 >https://www.mongodb.com/docs/manual/core/timeseries-collections/
+
+> Time Series Data Introduction 
+> https://www.mongodb.com/resources/basics/time-series-data-analysis
+
