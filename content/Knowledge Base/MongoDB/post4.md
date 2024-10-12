@@ -15,10 +15,23 @@ OLAP 관련하여 조사하다가 MongoDB의 새로운 기능 time series collec
 
 Time Series Collections은 효과적으로 시계열 데이터를 저장하기 위해  MongoDB 5.0 에서 도입된 새로운 Collection 입니다. 
 
-**기본적인 동작 원리는 비슷한 시간대의 데이터를 묶어 Paritioning 하는 것이며 추가로 Metafield 를 사용하여 추가적인 bucket 분리가 이루어집니다.** 시간 순서대로 데이터가 들어와도 저장은 반드시 시간 순으로 이루어집니다. 
+**기본적인 동작 원리는 비슷한 시간대의 데이터를 묶어 분리하는 것이며 추가로 Metafield 를 사용하여 추가적인 bucket 분리가 이루어집니다.** 시간 순서대로 데이터가 들어와도 저장은 반드시 시간 순으로 이루어집니다. 
 
-![[Pasted image 20240908145110.png]]
+![[mongodb_timeseries_collection.jpg]]
 
+시간대 별로  저장하는 것은 다른 OLAP 시스템의 데이터 저장소들과 크게 다르지 않지만 지정한 metafield 별로 분리된다는 것이 다른 점으로 보입니다. 
+
+
+metafield는 하나의 field 만 사용하는 것이 아닌 여러 개를 사용할 수 있습니다. 
+해당 필드들을 기준으로 나누게 되므로 Cardinality 가 높아질수록 분리된 파일이 더 많이 생성되므로 Insert 성능도 느려지게 됩니다. 
+
+이러한 특징 덕분에 MongoDB의 timeseries collection은 
+
+
+
+
+---
+# 생성
 
 아래는 time series collection 생성 쿼리 예시입니다.
 ``` json
