@@ -5,6 +5,7 @@ aliases:
 tags:
   - MongoDB
   - OLAP
+  - "#Knowledge-Base"
 draft: false
 date: 2024-10-13
 ---

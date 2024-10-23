@@ -7,6 +7,7 @@ tags:
   - ELK
   - Elasticsearch
   - Kibana
+  - "#Knowledge-Base"
 draft: 
 date: 2024-06-27
 ---
