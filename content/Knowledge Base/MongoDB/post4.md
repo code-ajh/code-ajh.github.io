@@ -109,7 +109,7 @@ timeseries collection은  index 와 bucket 두 번의 처리가 필요하기에 
 추가로 지속적으로 데이터를 넣을 수 있는 만큼 삭제 쿼리를 통해 데이터를 지우기보다는 TTL을 사용하여 삭제하는 것을 추천합니다. 
 
 ---
-# 결말
+# 결론
 
 timeseries collection 은 일반 collection 에 비해 더욱 많은 고민이 필요합니다.
 
